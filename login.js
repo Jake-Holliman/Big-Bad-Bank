@@ -12,7 +12,7 @@ function Login() {
         }
     });
     
-<h1> Welcome to my massive Bad Bank! Please Keep your cash safe with me. </h1> 
+
     function validate(field, label){
         if (!field) {
             setStatus('Error: ' + label);
