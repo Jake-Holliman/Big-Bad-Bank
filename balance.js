@@ -44,7 +44,7 @@ function Balance() {
                 </>
             ):(
                 <>
-                    <h5>You must log in to proceed</h5>
+                    <h5>Please log in to proceed</h5>
                 
                 
                 
