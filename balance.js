@@ -27,7 +27,7 @@ function Balance() {
     return (
         <Card
             bgcolor="primary"
-            header="Balance and History"
+            header="Big Balance and History"
             status={status}
             body={show ? (
                 <>
