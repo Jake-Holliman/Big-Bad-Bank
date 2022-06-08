@@ -16,7 +16,7 @@ function Withdraw() {
         let i = ctx.userIndex;
         let currentBalance = Number(ctx.users[i].balance);
         if (currentBalance < Number(withdraw)) {
-            setMessage(`The requested amount exceeds your current balance`);
+            setMessage(`Im sorry. You dont have that much capital.`);
             setWithdraw(0);
             return;
         }
@@ -42,7 +42,7 @@ function Withdraw() {
                     <h6>Your current balance is:</h6>
                     <h6>${ctx.currentUser.balance}</h6>
                     Withdraw<br/>
-                    <input type="number" className="form-control" id="withdraw" placeholder="Enter amount to withdraw" value={withdraw} onChange={e => setWithdraw(e.currentTarget.value)}/><br/>
+                    <input type="number" className="form-control" id="withdraw" placeholder="Enter a big amount to withdraw" value={withdraw} onChange={e => setWithdraw(e.currentTarget.value)}/><br/>
                     <button type="submit" className="btn btn-light" onClick={handleSubmit}>Withdraw</button><br/><br/>
                     {message && <h5>{message}</h5>}
 
