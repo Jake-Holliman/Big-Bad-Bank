@@ -4,9 +4,9 @@ function Home() {
     return (
        <Card
             txtcolor="black"
-            header="Bad Bank Landing Page"
-            title="Welcome to the Bank"
-            text="You can use this bank"
+            header="Big Bad Bank Landing Page"
+            title="Welcome to the Big Bad Bank"
+            text="Big Bad Bank"
             body={<img src="/images/bank.png" style={{width: 250}}></img>}
        
        
