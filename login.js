@@ -70,13 +70,13 @@ function Login() {
                     <input type="input" className="form-control" id="email" placeholder="Enter email" value={email} onChange={e => setEmail(e.currentTarget.value)}/><br/>
                     Password<br/>
                     <input type="input" className="form-control" id="password" placeholder="Enter password" value={password} onChange={e => setPassword(e.currentTarget.value)}/><br/>
-                    <button type="submit" className="btn btn-light" onClick={handleSubmit}>Log In</button>
+                    <button type="submit" className="btn btn-dark" onClick={handleSubmit}>Log In</button>
                     {errorMessage && <h5>{errorMessage}</h5>}
                 </>
             ):(
                 <>
                     <h5>Success</h5>
-                    <button type="submit" className="btn btn-light" onClick={clearForm}>Log Out</button>
+                    <button type="submit" className="btn btn-dark" onClick={clearForm}>Log Out</button>
                 </>
             )}
     
