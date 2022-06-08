@@ -38,7 +38,7 @@ function CreateAccount() {
    return (
        <Card
             bgcolor="primary"
-            header="Create Account"
+            header="Create a Big Account"
             status={status}
             body={show ? (
                 <>
@@ -54,7 +54,7 @@ function CreateAccount() {
             ):(
                 <>
                     <h5>Success! Welcome {ctx.currentUser.name}</h5>
-                    <p>Your account has been created, and you are now logged in.</p>
+                    <p>Your Big Bad account has been created, and you are now logged in.</p>
                     <button type="submit" className="btn btn-light" onClick={clearForm}>Add another account</button>
 
                 </>
