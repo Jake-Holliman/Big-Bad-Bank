@@ -1,234 +1,183 @@
-// const baseURL = 'http://localhost:3001/account'
-const baseURL = 'http://167.71.108.191:3001/account'
-function create() {
-  // -------------------------------------
-  //  YOUR CODE
-  //  Create user account on server
-  // -------------------------------------
-  console.log("hitting create!!");
 
-  let name = document.getElementById("createAccountName").value;
-  let email = document.getElementById("createAccountEmail").value;
-  let password = document.getElementById("createAccountPassword").value;
-  const url = `${baseURL}/create/${name}/${email}/${password}`;
-  superagent
-    .get(url)
-    .then((res) => {
-      console.log("success!!");
-      console.log(res);
-      if (res.text !== 'success') {
-        document.getElementById("results").innerHTML = `
-        <div class="alert alert-warning" role="alert">
-            ${res.text} for ${email}
-        </div>`;
-      } else {
-          document.getElementById("results").innerHTML = `
-        <div class="alert alert-success" role="alert">
-            Successfully created account for ${name} and ${email}!
-        </div>`;
-      }
-      
-    })
-    .catch((err) => {
-      console.log(err);
-      document.getElementById("results").innerHTML = `
-      <div class="alert alert-danger" role="alert">
-        There was an error while creating an account for ${name}
-      </div>`;
-    });
+function create() {
+    var name = document.getElementById('name').value;
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
+    if (name != null && email != null && password != null && name != '' && email != '' && password != '') {
+        const Http = new XMLHttpRequest();
+        var url = '/account/create/' + name + '/' + email + '/' + password;
+        Http.open("GET", url);
+        Http.send();
+        Http.onreadystatechange = (e) => {
+            if (Http.responseText != null && Http.responseText != '') {
+                if (Http.status == 200) {
+                    document.getElementById('output').value = "Account was created successful.";
+                }
+                else {
+                    document.getElementById('output').value = "Account with same email already exists.";
+                }
+            }
+            else {
+                document.getElementById('output').value = "Create account request failed"
+            }
+        }
+    }
+    else {
+        document.getElementById('output').value = "Name, email and password are required";
+    }
+
 }
 
 function login() {
-  // -------------------------------------
-  //  YOUR CODE
-  //  Confirm credentials on server
-  // -------------------------------------
-  console.log('clicked on log in')
-  let email = document.getElementById("loginEmail").value
-  let password = document.getElementById("loginPassword").value
-  const url = `${baseURL}/login/${email}/${password}`
-  superagent
-    .get(url)
-    .then((res) => {
-        console.log('successful')
-        console.log(res)
-        console.log(res.body)
-        document.getElementById("results").innerHTML = `
-        <div class="alert alert-success" role="alert">
-            Login successful!
-        </div>`;
-    })
-    .catch((err) => {
-        console.log('error')
-        console.log(err)
-        document.getElementById("results").innerHTML = `
-            <div class="alert alert-danger" role="alert">
-                Invalid email or password
-            </div>`;
-    })
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
+    if (email != null && password != null && email != '' && password != '') {
+        const Http = new XMLHttpRequest();
+        var url = '/account/login/' + email + '/' + password;
+        Http.open("GET", url);
+        Http.send();
+        Http.onreadystatechange = (e) => {
+            if (Http.responseText != null && Http.responseText != '') {
+                if (Http.status == 200) {
+                    document.getElementById('output').value = "Login was successful. Your account:\n " + Http.responseText;
+                }
+                else {
+                    document.getElementById('output').value = "The email you entered was not found";
+                }
+            }
+            else {
+                document.getElementById('output').value = "Login request failed or password was not correct"
+            }
+        }
+    }
+    else {
+        document.getElementById('output').value = "Email and password are required";
+    }
 }
 
 function deposit() {
-  // -------------------------------------
-  //  YOUR CODE
-  //  Deposit funds user funds on server
-  // -------------------------------------
-  console.log('clicked on deposit')
-  let email = document.getElementById("depositEmail").value
-  let amount = document.getElementById("depositAmount").value
-  console.log(email)
-  console.log(amount)
-  const url = `${baseURL}/deposit/${email}/${amount}`
-  superagent
-    .get(url)
-    .then((res) => {
-        console.log('success')
-        if (res.text !== 'success') {
-            document.getElementById("results").innerHTML = `
-            <div class="alert alert-warning" role="alert">
-                ${res.text}
-            </div>`;
-          } else {
-              document.getElementById("results").innerHTML = `
-            <div class="alert alert-success" role="alert">
-                Successfully deposited $${amount} into ${email}'s account
-            </div>`;
-          }
-    })
-    .catch((err) => {
-        console.log(err)
-    })
+    var email = document.getElementById('email').value;
+    var amount = document.getElementById('amount').value;
+    if (email != null && amount != null && email != '' && amount != '' && amount > 0) {
+        const Http = new XMLHttpRequest();
+        var url = '/account/deposit/' + email + '/' + amount;
+        Http.open("GET", url);
+        Http.send();
+        Http.onreadystatechange = (e) => {
+            if (Http.responseText != null && Http.responseText != '') {
+                if (Http.status == 200) {
+                    document.getElementById('output').value = "Deposit was successful";
+                }
+                else {
+                    document.getElementById('output').value = "The email you entered was not found";
+                }
+            }
+            else {
+                document.getElementById('output').value = "Deposit request failed "
+            }
+        }
+    }
+    else {
+        document.getElementById('output').value = "Email and amount are required and amount needs to be bigger than 0";
+    }
 }
 
 function withdraw() {
-  // -------------------------------------
-  //  YOUR CODE
-  //  Withdraw funds user funds on server
-  // -------------------------------------
-  console.log('clicked on withdraw')
-  let email = document.getElementById("withdrawEmail").value
-  let amount = document.getElementById("withdrawAmount").value
-  console.log(email)
-  console.log(amount)
-  const url = `${baseURL}/withdraw/${email}/${amount}`
-  superagent
-    .get(url)
-    .then((res) => {
-        console.log('success')
-        if (res.text !== 'success') {
-            document.getElementById("results").innerHTML = `
-            <div class="alert alert-warning" role="alert">
-                ${res.text}
-            </div>`;
-          } else {
-              document.getElementById("results").innerHTML = `
-            <div class="alert alert-success" role="alert">
-                Successfully withdrew $${amount} from ${email}'s account
-            </div>`;
-          }
-    })
-    .catch((err) => {
-        console.log(err)
-    })
+    var email = document.getElementById('email').value;
+    var amount = document.getElementById('amount').value;
+    if (email != null && amount != null && email != '' && amount != '' && amount > 0) {
+        const Http = new XMLHttpRequest();
+        var url = '/account/withdraw/' + email + '/' + amount;
+        Http.open("GET", url);
+        Http.send();
+        Http.onreadystatechange = (e) => {
+            if (Http.responseText != null && Http.responseText != '') {
+                if (Http.status == 200) {
+                    document.getElementById('output').value = "Withdraw was successful";
+                }
+                else {
+                    document.getElementById('output').value = "The email you entered was not found";
+                }
+            }
+            else {
+                document.getElementById('output').value = "Withdraw request failed "
+            }
+        }
+    }
+    else {
+        document.getElementById('output').value = "Email and amount are required and amount needs to be bigger than 0";
+    }
 }
 
 function transactions() {
-  // -------------------------------------
-  //  YOUR CODE
-  //  Get all user transactions
-  // -------------------------------------
-  console.log('clicked on transactions')
-  let email = document.getElementById("transactionsEmail").value
-  console.log(email)
-  const url = `${baseURL}/transactions/${email}`
-  superagent
-    .get(url)
-    .then((res) => {
-        console.log('success')
-        console.log(res)
-        if (res.body) {
-          console.log(res.body)
-          let resultsDiv = document.getElementById("results");
-          resultsString = ''
-        resultsString = `
-            <table class="table">
-              <thead>
-                <tr>`;
-          let tableHeaders = Object.keys(res.body[0])      
-          for (let i = 0; i < tableHeaders.length; i++) {
-            resultsString += `<th scope="col">${tableHeaders[i]}</th>`
-          }
-          resultsString += `</tr>
-          </thead>
-          <tbody>
-          `;
-          for (let i = 0; i < res.body.length; i++) {
-            resultsString  += `<tr>`;
-            for (let j = 0; j < tableHeaders.length; j++) {
-              let currentHeader = tableHeaders[j]
-              resultsString += `<td>${res.body[i][currentHeader]}</td>`
+    var email = document.getElementById('email').value;
+    if (email != null && email != '') { //check if email is not empty
+        const Http = new XMLHttpRequest();
+        var url = '/account/transactions/' + email;
+        Http.open("GET", url);
+        Http.send();
+        Http.onreadystatechange = (e) => {
+            if (Http.responseText != null && Http.responseText != '') {
+                if (Http.status == 200) {
+                    document.getElementById('output').value = Http.responseText;
+                }
+                else {
+                    document.getElementById('output').value = "The email you entered was not found";
+                }
             }
-            resultsString += `</tr>`
-            
-          }
-          resultsString += `</tbody></table>`
-          resultsDiv.innerHTML = resultsString;
+            else { //empty server response
+                document.getElementById('output').value = "Transaction request failed "
+            }
         }
-    })
-    .catch((err) => {
-        console.log(err)
-    })
+    }
+    else {
+        document.getElementById('output').value = "Email is required";
+    }
 }
 
+
 function balance() {
-  // -------------------------------------
-  //  YOUR CODE
-  //  Get user balance
-  // -------------------------------------
-  console.log('clicked on balance')
-  let email = document.getElementById("balanceEmail").value
-  console.log(email)
-  const url = `${baseURL}/transactions/${email}`
-  superagent
-    .get(url)
-    .then((res) => {
-        console.log('success')
-        console.log(res)
-        let transactions = res.body
-        if (transactions) {
-          let balance = transactions.reduce((acc, curr) => {return acc + curr.amount}, 0)
-          document.getElementById("results").innerHTML = `
-          <div class="alert alert-success" role="alert">
-              ${email}'s account balance is $${balance}
-          </div>`;
+    var email = document.getElementById('email').value;
+    if (email != null && email != '') {
+        const Http = new XMLHttpRequest();
+        var url = '/account/balance/' + email;
+        Http.open("GET", url);
+        Http.send();
+        Http.onreadystatechange = (e) => {
+            if (Http.responseText != null && Http.responseText != '') {
+                if (Http.status == 200) {
+                    document.getElementById('output').value = Http.responseText;
+                }
+                else {
+                    document.getElementById('output').value = "The email you entered was not found";
+                }
+            }
+            else {
+                document.getElementById('output').value = "Balance request failed "
+            }
         }
-    })
-    .catch((err) => {
-        console.log(err)
-    })
+    }
+    else {
+        document.getElementById('output').value = "Email is required";
+    }
 }
 
 function allData() {
-  // -------------------------------------
-  //  YOUR CODE
-  //  Get all data
-  // -------------------------------------
-  const url = `${baseURL}/all`
-  superagent
-    .get(url)
-    .then((res) => {
-        console.log('success')
-        console.log(res)
-        let results = document.getElementById("results");
-        let accountsInfo = res.body
-        for (let i = 0; i < accountsInfo.length; i++) {
-            results.innerHTML += `<p>${JSON.stringify(accountsInfo[i])}`
+    const Http = new XMLHttpRequest();
+    var url = '/account/all';
+    Http.open("GET", url);
+    Http.send();
+    Http.onreadystatechange = (e) => {
+        if (Http.responseText != null && Http.responseText != '') {
+            if (Http.status == 200) {
+                document.getElementById('output').value = Http.responseText;
+            }
+            else {
+                document.getElementById('output').value = "No data was found";
+            }
         }
-        console.log(accountsInfo)
-        // document.getElementById("results").innerHTML = accountsInfo
-        
-    })
-    .catch((err) => {
-        console.log(err)
-    })
+        else { //empty server response
+            document.getElementById('output').value = "All accounts request failed "
+        }
+    }
 }
