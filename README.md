@@ -13,7 +13,7 @@ This is a project we worked on during MIT xPRO's Full Stack Web Development porg
 ## How to Run
 
 Clone the repository:
-### `git clone https://github.com/miltonjginebra/bad-bank.git`
+### `git clone https://github.com/Jake-Holliman/big-bad-bank'
 
 Install packages:
 ### `npm install`
