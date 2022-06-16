@@ -2,7 +2,7 @@
 
 ## Demo
 
-[Bad Bank App](http://milton-ginebrabankingapplication.s3-website-us-east-1.amazonaws.com/#/)
+[Bad Bank App]
 
 
 ## Description
